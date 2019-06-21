@@ -11,9 +11,11 @@
 
 function defang(ip_address){
 
+    if (!isValidIP(ip_address)) return false;
+
     let arr = ip_address.split(".");
     let result = arr.join("[.]");
-    
+
     return result;
 }
 
@@ -22,5 +24,16 @@ function fang(ip_address){
     let arr = ip_address.split("[.]");
     let result = arr.join(".");
 
-    return validIP(result) ? result : false;
+    return isValidIP(result) ? result : false;
+}
+
+function isValidIP(ip) {
+    let arr = ip.split(".");
+
+    if (arr.length != 4) return false;
+
+    for (let i = 0; i < arr.length; i++){
+        if ( typeof parseInt(arr[i]) != 'number' || arr[i] >= 999 || arr[i] <= 0) return false;
+    }
+    return true;
 }
